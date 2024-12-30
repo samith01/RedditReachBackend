@@ -1,4 +1,14 @@
 export default async function handler(req, res) {
+    // Allow requests from your frontend domain
+    res.setHeader('Access-Control-Allow-Origin', 'https://redditreach.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        // Handle pre-flight request
+        return res.status(200).end();
+    }
+
     if (req.method === 'GET') {
         const url = req.query.url;
         if (!url) {
